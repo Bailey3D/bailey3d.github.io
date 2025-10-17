@@ -1,0 +1,143 @@
+# Site Settings
+lang: en
+title: Bailey3D
+tagline: Technical Art
+email: contact@bailey3d.com
+description: >
+  Technical Artist - Specialising in Pipeline, Tools, and Shaders.
+baseurl: ""
+url: "https://www.bailey3d.com"
+permalink: pretty
+favicon: "/assets/images/B3D_Logo.png"
+hero_image: /assets/images/banner.jpg
+theme: bulma-clean-theme
+
+# Build Settings
+livereload: true
+destination: ../.build/jekyll
+markdown: kramdown
+highlighter: rouge
+
+paginate: 5
+paginate_path: "/blog/page:num"
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-feed
+  - jekyll-seo-tag
+  - kramdown-parser-gfm
+  - jekyll-redirect-from
+
+# mimic GitHub Pages with --safe
+whitelist:
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jekyll-include-cache
+
+exclude:
+  - Gemfile
+  - clean-theme.gemspec
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+sass:
+  style: compressed
+  source_dir: _sass
+
+google_analytics: G-YBL8T39XKG
+google-analytics: G-YBL8T39XKG
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      show_sidebar: true
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      author: "Bailey Martin"
+      layout: post
+      image: https://via.placeholder.com/1200x800
+      show_sidebar: true
+  -
+    scope:
+      path: ""
+      type: "products"
+    values:
+      author: "Bailey Martin"
+      layout: product
+      image: https://via.placeholder.com/800x600
+      show_sidebar: true
+
+footer_menu: example_footer_menu
+
+collections:
+  products:
+    output: true
+    layout: product
+    image: https://via.placeholder.com/800x600
+    show_sidebar: false
+
+  docs:
+    output: true
+    permalink: /:collection/:path/
+    layout: page
+    image: https://via.placeholder.com/800x600
+    show_sidebar: false
+
+# This list contains information on the portfolio / homepage entries
+# - The order of the list determines the order on the homepage
+# - The name must be added to a given blog post via a key (e.g. `portfolio: space_colonization`)
+portfolio:
+  space_colonization:
+    featured: true
+  hlsl_shader_unreal:
+    featured: true
+  ocean_rendering:
+    featured: true
+  juniper:
+    featured: true
+  desert_diorama:
+    featured: true
+  houdini_drop:
+    featured: true
+  iridescent_shader:
+    featured: true
+
+storefront:
+  # This list contains information on the store entries
+  # - The order of the list determines the order of the products in the store page and in store sidebars
+  # - The name must be added to a given blog post via a key (e.g. `store_name: iridescent_materials`)
+  retro_filters_pack:
+    price: $39.99
+    docs_link: /docs/RetroFiltersPack/index
+    buy_now_link: https://www.fab.com/listings/38e34c0b-e2b2-42df-9477-d27608dd21ff
+
+  iridescent_materials:
+    price: $24.99
+    buy_now_link: https://www.fab.com/listings/4e908bd7-2fae-4d5e-a913-12a014fad980
+    rating: 5
+
+  sketch_it:
+    price: $23.99
+    docs_link: /docs/SketchIt/index
+    buy_now_link: https://www.fab.com/listings/2e9d7e0b-a487-488e-b677-87666549d06e
+    rating: 5
+
+  mesh_splitter:
+    price: Free
+    buy_now_link: https://www.artstation.com/a/14426803
+
+  quick_merge_selection:
+    price: Free
+    buy_now_link: https://www.artstation.com/a/15216332

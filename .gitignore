@@ -29,4 +29,7 @@ _asset_bundler_cache
 _site
 
 # Bailey3D: General
+.build
+.cache
+.ruby-lsp
 /assets/images/temp
