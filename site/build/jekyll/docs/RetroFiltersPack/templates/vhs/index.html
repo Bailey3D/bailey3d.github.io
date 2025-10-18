@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+
+
+
+
+<html
+ dir="ltr"
+ lang="en"
+ >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content=#ffffff>
+    <link rel="stylesheet" href="/assets/css/app.css">
+
+    <!--Bailey3D: Added Magnific popup-->
+    <link rel="stylesheet" href="/assets/css/magnific-popup.css">
+
+    <!--Bailey3D: Added twentytwenty (image comparison)-->
+    <link rel="stylesheet" href="/assets/css/twentytwenty.css" type="text/css" media="screen" />
+
+    <!--Bailey3D: Added splide-->
+    <link rel="stylesheet" href="/assets/packages/splide.min.css" type="text/css" media="screen" />
+    <!--<link rel="stylesheet" href="/assets/packages/splide-default.min.css" type="text/css" media="screen" />-->
+
+    <link rel="shortcut icon" type="image/png"
+           href="https://assets.bailey3d.com/website.assets/icon.png" 
+    />
+    <script defer src="https://unpkg.com/alpinejs@3.9.0/dist/cdn.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-social@1/bin/bulma-social.min.css">
+    
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Retro Filters Pack | Bailey3D</title>
+<meta name="generator" content="Jekyll v4.4.1" />
+<meta property="og:title" content="Retro Filters Pack" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="Technical Artist Specialising in Pipelines and Tools." />
+<meta property="og:description" content="Technical Artist Specialising in Pipelines and Tools." />
+<link rel="canonical" href="http://0.0.0.0:4000/docs/RetroFiltersPack/templates/vhs/" />
+<meta property="og:url" content="http://0.0.0.0:4000/docs/RetroFiltersPack/templates/vhs/" />
+<meta property="og:site_name" content="Bailey3D" />
+<meta property="og:image" content="https://github.com/Bailey3D-Website/2021/blob/main/packages/SketchIt/banner.png?raw=true" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-10-18T10:57:07+00:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://github.com/Bailey3D-Website/2021/blob/main/packages/SketchIt/banner.png?raw=true" />
+<meta property="twitter:title" content="Retro Filters Pack" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-10-18T10:57:07+00:00","datePublished":"2025-10-18T10:57:07+00:00","description":"Technical Artist Specialising in Pipelines and Tools.","headline":"Retro Filters Pack","image":"https://github.com/Bailey3D-Website/2021/blob/main/packages/SketchIt/banner.png?raw=true","mainEntityOfPage":{"@type":"WebPage","@id":"http://0.0.0.0:4000/docs/RetroFiltersPack/templates/vhs/"},"url":"http://0.0.0.0:4000/docs/RetroFiltersPack/templates/vhs/"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YBL8T39XKG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YBL8T39XKG');
+</script>
+<!-- head scripts -->
+<script src="/assets/js/main.min.js"></script>
+
+<!--Bailey3D: Added jQuery-->
+<script src="/assets/js/jquery.min.js" type="text/javascript"></script>
+<script src="/assets/js/jquery.fitvids.js" type="text/javascript"></script>
+
+<!--Bailey3D: Added Magnific popup-->
+<script src="/assets/js/jquery.magnific-popup.min.js" type="text/javascript"></script>
+
+<!--Bailey3D: Added twentytwenty (image comparison)-->
+<script src="/assets/js/jquery.event.move.js" type="text/javascript"></script>
+<script src="/assets/js/jquery.twentytwenty.js" type="text/javascript"></script>
+
+<!--Bailey3D: Added Splide-->
+<script src="/assets/packages/splide.min.js" type="text/javascript"></script>
+</head>
+
+  <body>
+    <nav class="navbar is-primary " x-data="{ openNav: false }">
+    <div class="container">
+
+
+        <div class="navbar-brand">
+
+            <div style="display: flex; justify-content: center; align-items: center;">
+                
+                    <a class="site-logo" href="/"><img src="https://assets.bailey3d.com/website.assets/icon.png" style="max-width: 32px; max-height: 32px;"></a>
+                
+            </div>
+
+            <a href="/" class="navbar-item">
+                Bailey3D
+            </a>
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navMenu" :class="{ 'is-active': openNav }" x-on:click="openNav = !openNav">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div class="navbar-menu" id="navMenu" :class="{ 'is-active': openNav }">
+            <div class="navbar-start">
+                <a href="/" class="navbar-item ">Home</a>
+                
+                
+                    
+                    <a href="/blog/" class="navbar-item ">Blog</a>
+                    
+                
+                    
+                    <a href="/store/" class="navbar-item ">Store</a>
+                    
+                
+                    
+                    <div class="navbar-item has-dropdown is-hoverable ">
+                        <a href="" class="navbar-link ">Docs</a>
+                        <div class="navbar-dropdown">
+                            
+                            <a href="/docs/SketchIt/index/" class="navbar-item ">SketchIt</a>
+                            
+                            <a href="/docs/RetroFiltersPack/index/" class="navbar-item ">Retro Filters Pack</a>
+                            
+                            <a href="/docs/Juniper/index/" class="navbar-item ">Juniper</a>
+                            
+                        </div>
+                    </div>
+                    
+                
+                
+            </div>
+
+            <div class="navbar-end">
+                
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+    
+        <!--
+:desc Page used as the hero banner for a page - with info on the name/docs
+:desc for store pages this will include price and rating
+:desc for blog pages this will include tags and author
+-->
+
+
+
+
+<!--
+store properties
+-->
+
+
+
+<section class="hero  is-medium  is-bold is-primary"  style="background: url('https://github.com/Bailey3D-Website/2021/blob/main/packages/RetroFiltersPack/Images/Gallery/gallery_retro_game_console.jpg?raw=true') no-repeat center center; background-size: cover;" >
+    <div class="hero-body ">
+        <div class="container">
+
+            
+                <h1 class="title is-2">Retro Filters Pack</h1>
+            
+
+            <p class="subtitle is-3">Templates > VHS Tape</p>
+            
+
+            
+
+            <div>
+
+                
+                    <a class="button is-primary" href="https://www.fab.com/listings/38e34c0b-e2b2-42df-9477-d27608dd21ff" target="_blank">$39.99 - Buy Now</a>
+                
+
+
+                
+
+                
+
+                
+
+            </div>
+
+            
+
+
+        </div>
+    </div>
+</section>
+
+
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns is-multiline">
+                
+                <div class="column is-4-desktop is-4-tablet">
+                    
+
+<aside class="menu">
+
+    <p class="menu-label">Documentation</p>
+    <ul class="menu-list">
+        
+        <li>
+            <a href="/docs/RetroFiltersPack/index/#getting_started" class="">Getting Started</a>
+            
+        </li>
+        
+        <li>
+            <a href="/docs/RetroFiltersPack/index/#see_more" class="">See More</a>
+            
+        </li>
+            
+    </ul>
+
+    <p class="menu-label">Templates</p>
+    <ul class="menu-list">
+        
+        <li>
+            <a href="/docs/RetroFiltersPack/templates/crt_monitor" class="">CRT Monitor</a>
+            
+        </li>
+        
+        <li>
+            <a href="/docs/RetroFiltersPack/templates/retro_console" class="">Retro Console</a>
+            
+        </li>
+        
+        <li>
+            <a href="/docs/RetroFiltersPack/templates/pixelate" class="">Pixelate</a>
+            
+        </li>
+        
+        <li>
+            <a href="/docs/RetroFiltersPack/templates/vhs" class="">VHS</a>
+            
+        </li>
+        
+        <li>
+            <a href="/docs/RetroFiltersPack/templates/vintage_film" class="">Vintage Film</a>
+            
+        </li>
+        
+        <li>
+            <a href="/docs/RetroFiltersPack/templates/film_grain" class="">Film Grain</a>
+            
+        </li>
+            
+    </ul>
+
+    <p class="menu-label">Screen Effects</p>
+    <ul class="menu-list">
+        
+        <li>
+            <a href="/docs/RetroFiltersPack/screen_effects/#overview" class="">Overview</a>
+            
+        </li>
+        
+        <li>
+            <a href="/docs/RetroFiltersPack/screen_effects/#crt_distortion" class="">CRT Distortion</a>
+            
+        </li>
+        
+        <li>
+            <a href="/docs/RetroFiltersPack/screen_effects/#led_pixels" class="">LED Pixels</a>
+            
+        </li>
+        
+        <li>
+            <a href="/docs/RetroFiltersPack/screen_effects/#interlacing" class="">Interlacing</a>
+            
+        </li>
+        
+        <li>
+            <a href="/docs/RetroFiltersPack/screen_effects/#vignette" class="">Glitch</a>
+            
+        </li>
+        
+        <li>
+            <a href="/docs/RetroFiltersPack/screen_effects/#vignette" class="">Vignette</a>
+            
+        </li>
+            
+    </ul>
+
+    <p class="menu-label">Image Effects</p>
+    <ul class="menu-list">
+        
+        <li>
+            <a href="/docs/RetroFiltersPack/image_effects/#overview" class="">Overview</a>
+            
+        </li>
+        
+        <li>
+            <a href="/docs/RetroFiltersPack/image_effects/#bit_depth" class="">Bit Depth</a>
+            
+        </li>
+        
+        <li>
+            <a href="/docs/RetroFiltersPack/image_effects/#gradient_mapping" class="">Gradient Mapping</a>
+            
+        </li>
+        
+        <li>
+            <a href="/docs/RetroFiltersPack/image_effects/#pixelate" class="">Pixelate</a>
+            
+        </li>
+        
+        <li>
+            <a href="/docs/RetroFiltersPack/image_effects/#saturation" class="">Saturation</a>
+            
+        </li>
+        
+        <li>
+            <a href="/docs/RetroFiltersPack/image_effects/#static" class="">Static</a>
+            
+        </li>
+            
+    </ul>
+
+</aside>
+                </div>
+                
+                <div class="column is-8">
+                    
+
+                    
+<div class="content">
+    <h2 id="vhs"><strong>VHS:</strong></h2>
+<section id="vhs" />
+
+<p>This effect captures the nostalgic charm of VHS recordings, providing a unique and stylized look for projects that require a retro video aesthetic.</p>
+
+<h3 id="vhs-tape"><strong>VHS Tape:</strong></h3>
+
+<div id="MI_RetroFiltersPack_VHS" class="twentytwenty-container">
+    <!-- The before image is first -->
+    <img src="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/RetroFiltersPack/Images/Renders/vhs/vhs_off.jpeg" />
+    <!-- The after image is last -->
+    <img src="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/RetroFiltersPack/Images/Renders/vhs/vhs_on.webp" />
+</div>
+
+<script>
+    // Bailey3D: The TwentyTwenty documentation says to use 
+    //`$(function(){` - but if the connection is not quick enough and we finish loading the page
+    // before they are all downloading then they will not be visible until the next refresh.
+    $(window).on("load", function(){
+      $("#MI_RetroFiltersPack_VHS").twentytwenty({
+        default_offset_pct: 0.25
+      });
+    });
+</script>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">..</th>
+      <th style="text-align: left">..</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><b>Asset Name:</b></td>
+      <td style="text-align: left">MI_RetroFiltersPack_VHS</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><b>Template Category:</b></td>
+      <td style="text-align: left">VHS Tape</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><b>Screen Effects:</b></td>
+      <td style="text-align: left"><a href="/docs/RetroFiltersPack/screen_effects/#crt_distortion">CRT Distortion</a><br /><a href="/docs/RetroFiltersPack/screen_effects/#led_pixels">LED Pixels</a><br /><a href="/docs/RetroFiltersPack/screen_effects/#interlacing">Interlacing</a><br /><a href="/docs/RetroFiltersPack/screen_effects/#glitch">Glitch</a><br /></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><b>Image Effects:</b></td>
+      <td style="text-align: left"><a href="/docs/RetroFiltersPack/image_effects/#bit_depth">Bit Depth</a><br /><a href="/docs/RetroFiltersPack/image_effects/#pixelate">Pixelate</a><br /><a href="/docs/RetroFiltersPack/image_effects/#saturation">Saturation</a><br /></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="see-also"><strong>See Also:</strong></h2>
+
+<div class="columns is-multiline">
+
+    <div class="column is-4-desktop is-6-tablet">
+    <div class="card">
+        <div class="card-image">
+            <a href="/docs/RetroFiltersPack/templates/crt_monitor">
+                <img src="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/RetroFiltersPack/Images/Renders/crt/thumbs/crt_on_bleed.jpg" alt="CRT Monitor" />
+            </a>
+        </div>
+    
+        <div class="card-content">
+            <div class="content">
+                <a class="title is-4" href="/docs/RetroFiltersPack/templates/crt_monitor">CRT Monitor</a>
+                
+                    
+
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="column is-4-desktop is-6-tablet">
+    <div class="card">
+        <div class="card-image">
+            <a href="/docs/RetroFiltersPack/templates/retro_console">
+                <img src="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/RetroFiltersPack/Images/Renders/retro_console/thumbs/arcade_machine.jpg" alt="Retro Console" />
+            </a>
+        </div>
+    
+        <div class="card-content">
+            <div class="content">
+                <a class="title is-4" href="/docs/RetroFiltersPack/templates/retro_console">Retro Console</a>
+                
+                    
+
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="column is-4-desktop is-6-tablet">
+    <div class="card">
+        <div class="card-image">
+            <a href="/docs/RetroFiltersPack/templates/pixelate">
+                <img src="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/RetroFiltersPack/Images/Renders/pixelate/pixelate_on.jpeg" alt="Pixelate" />
+            </a>
+        </div>
+    
+        <div class="card-content">
+            <div class="content">
+                <a class="title is-4" href="/docs/RetroFiltersPack/templates/pixelate">Pixelate</a>
+                
+                    
+
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="column is-4-desktop is-6-tablet">
+    <div class="card">
+        <div class="card-image">
+            <a href="/docs/RetroFiltersPack/templates/vhs">
+                <img src="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/RetroFiltersPack/Images/Renders/vhs/vhs_on.webp" alt="VHS Tape" />
+            </a>
+        </div>
+    
+        <div class="card-content">
+            <div class="content">
+                <a class="title is-4" href="/docs/RetroFiltersPack/templates/vhs">VHS Tape</a>
+                
+                    
+
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="column is-4-desktop is-6-tablet">
+    <div class="card">
+        <div class="card-image">
+            <a href="/docs/RetroFiltersPack/templates/vintage_film">
+                <img src="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/RetroFiltersPack/Images/Renders/vintage_film/thumbs/vintage_film_on.jpg" alt="Vintage Film" />
+            </a>
+        </div>
+    
+        <div class="card-content">
+            <div class="content">
+                <a class="title is-4" href="/docs/RetroFiltersPack/templates/vintage_film">Vintage Film</a>
+                
+                    
+
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="column is-4-desktop is-6-tablet">
+    <div class="card">
+        <div class="card-image">
+            <a href="/docs/RetroFiltersPack/templates/film_grain">
+                <img src="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/RetroFiltersPack/Images/Renders/film_grain/thumbs/film_grain_on.jpg" alt="Film Grain" />
+            </a>
+        </div>
+    
+        <div class="card-content">
+            <div class="content">
+                <a class="title is-4" href="/docs/RetroFiltersPack/templates/film_grain">Film Grain</a>
+                
+                    
+
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+</div>
+
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    
+        <footer class="footer">
+    <div class="container">
+        
+        
+        <div class="columns is-multiline">
+            
+        </div>
+        
+
+        <div class="content is-small has-text-centered">
+            <p class="">Copyright © <a href="https://www.bailey3d.com">Bailey Martin 2025</a></p>
+        </div>
+    </div>
+</footer>
+
+    
+    <script src="/assets/js/app.js" type="text/javascript"></script><!-- footer scripts -->
+</body>
+</html>

@@ -1,0 +1,18 @@
+  
+- name: Blog
+  link: /blog/
+
+- name: Store
+  link: /store/
+
+#- name: About
+#  link: /about/
+
+- name: Docs
+  dropdown:
+    - name: SketchIt
+      link: /docs/SketchIt/index/
+    - name: Retro Filters Pack
+      link: /docs/RetroFiltersPack/index/
+    - name: Juniper
+      link: /docs/Juniper/index/

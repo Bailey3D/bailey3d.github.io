@@ -1,2 +1,848 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="eng"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" hreflang="eng" /><updated>2025-10-18T10:11:44+00:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">Bailey3D</title><subtitle>Technical Artist Specialising in Pipelines and Tools.
-</subtitle></feed>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-10-18T10:57:07+00:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">Bailey3D</title><subtitle>Technical Artist Specialising in Pipelines and Tools.
+</subtitle><entry><title type="html">Drop To Terrain (Houdini)</title><link href="http://0.0.0.0:4000/2021/10/30/drop_to_terrain/" rel="alternate" type="text/html" title="Drop To Terrain (Houdini)" /><published>2021-10-30T00:00:00+00:00</published><updated>2021-10-30T00:00:00+00:00</updated><id>http://0.0.0.0:4000/2021/10/30/drop_to_terrain</id><content type="html" xml:base="http://0.0.0.0:4000/2021/10/30/drop_to_terrain/"><![CDATA[<p>Drop To Terrain is a Houdini based tool used to drop different types of geometry to terrain, using different methods.<br />
+It includes a few different drop methods for different geometry types, from more deformable geometry such as tree roots, to hard surface geometry such as rocks.</p>
+
+<p><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Drop/thumb.png?raw=true" alt="Image" class="center-image" /></p>
+
+<p>It’s worth noting this doesn’t run a physics simulation, it’s only for direct dropping to terrain.<br />
+A good use for this would be foliage placement.  Using per-vertex drop to deform tree roots to terrain, and the bounds based dropfor dropping tree meshes.</p>
+
+<p>You can download the digital asset <a href="https://github.com/Bailey3D-Website/2021/tree/main/resources/houdini_drop">here</a>. It includes a HDA (Terrain Drop), and an example file including the rubber toy dropping to a simple terrain.</p>
+
+<hr />
+
+<h3 id="parameters">Parameters:</h3>
+
+<p><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Drop/params.jpg?raw=true" alt="Image" class="center-image" /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Drop Mode</b></td>
+      <td>The method used for dropping the geometry to the terrain</td>
+    </tr>
+    <tr>
+      <td>Vertex</td>
+      <td>Each vertex is dropped independently</td>
+    </tr>
+    <tr>
+      <td>Element</td>
+      <td>Each element is dropped independently (sub-mesh)</td>
+    </tr>
+    <tr>
+      <td>BBox (Center)</td>
+      <td>Drop is calculated from the center of the bounding box</td>
+    </tr>
+    <tr>
+      <td>BBox (Corners)</td>
+      <td>Drop is averaged from the 4 lower corners of the bounding box</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>Volume Preservation Mode</b></td>
+      <td>Method used to preserve the vertical height in the mesh at each vertex</td>
+    </tr>
+    <tr>
+      <td>BBox</td>
+      <td>Vertical height of the mesh relative to the bounding box is used for thickness. This allows for overhanging geometry at the expense of fully accurate deformation, as the drop can only start from the bottom plane of the bbox</td>
+    </tr>
+    <tr>
+      <td>Vertical Thickness</td>
+      <td>Uses the actual vertical positions of the mesh (Up Axis) to calculate the mesh thickness at each drop position. This gives geometry that’s perfectly deformed to therrain, however can struggle when it comes to overhanging areas.</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>Hit Normal Influence</b></td>
+      <td>Overall strength the normals of the terrain have on the final drop [0..1]</td>
+    </tr>
+    <tr>
+      <td><b>Cap Holes?</b></td>
+      <td>Caps open edges in the geometry. Useful as open edges can cause thickness calculations to fail.</td>
+    </tr>
+    <tr>
+      <td><b>Height Offset</b></td>
+      <td>Height offset applied to the geometry in the up axis. Useful to make the mesh sink into the terrain slightly</td>
+    </tr>
+    <tr>
+      <td><b>Fractional Offset?</b></td>
+      <td>When true, a [0..1] fraction is used for the offset. Where a value of 1.0 is equal to the meshes bounds in the up axis</td>
+    </tr>
+    <tr>
+      <td><b>Smooth Strength</b></td>
+      <td>Strength of the geometry smoothing applied to the mesh after drop is complete. This can help to clean up noisy geometry when hit normal influence is non-zero</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h3 id="example-per-vertex-thickness-based">Example: Per Vertex (Thickness Based)</h3>
+
+<p><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Drop/per_vert_with_thickness.jpg?raw=true" alt="Image" class="center-image" /></p>
+
+<p>Properties: <code class="language-plaintext highlighter-rouge">Drop Mode: Vertex</code>  <code class="language-plaintext highlighter-rouge">Volume Mode: Vertical Thickness</code></p>
+
+<p>This mode is best used on geometry that should flow with the terrain, as the geometry is actually deformed with the drop mesh (Ie, tree roots)</p>
+
+<p>Drops each vertex in the mesh independently to the terrain. Gathers a terrain normal for each vertex, meaning normal deformation will match exactly to the terrain below.</p>
+
+<h3 id="example-per-vertex-drop-bbox-based">Example: Per Vertex Drop (BBox Based)</h3>
+
+<p><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Drop/vertex_with_bbox.jpg?raw=true" alt="Image" class="center-image" /></p>
+
+<p>Properties: <code class="language-plaintext highlighter-rouge">Drop Mode: Vertex</code> <code class="language-plaintext highlighter-rouge">Volume Mode: BBox</code></p>
+
+<p>Same drop method as the previous example, but uses a Bounds based thickness calculation. Useful for larger meshes with overhanging pieces, as the height is preserved (see the image comparisons)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Thickness Based</th>
+      <th>BBox Based</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Drop/vertex_with_thickness.jpg?raw=true" alt="Image" /></td>
+      <td><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Drop/vertex_with_bbox.jpg?raw=true" alt="Image" /></td>
+    </tr>
+    <tr>
+      <td>Note the inaccurate looking drop on the overhanging portions of the mesh (snout)</td>
+      <td>Overhanging areas have vertical height preserved</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="example-per-element-drop">Example: Per Element Drop</h3>
+
+<p><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Drop/elements_with_thickness.jpg?raw=true" alt="Image" class="center-image" /></p>
+
+<p>Properties: <code class="language-plaintext highlighter-rouge">Drop Mode: Element</code> <code class="language-plaintext highlighter-rouge">Volume Mode: Vertical Thickness</code></p>
+
+<p>Drop is applied to each sub-mesh in the geometry using the average offset for all verts in the element, resulting in a final drop that has no deformation.
+Useful for hard surface geometry such as rocks and clutter.</p>
+
+<h3 id="example-bbox-center-drop--bbox-corners-drop">Example: BBox Center Drop / BBox Corners Drop</h3>
+
+<p><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Drop/bbox_center_with_bbox_corners.jpg?raw=true" alt="Image" class="center-image" /></p>
+
+<p>Properties: <code class="language-plaintext highlighter-rouge">Drop Mode: BBox (Center) or BBox (Corners)</code></p>
+
+<p>Uniform drop offset is applied across the whole geometry. <br />
+When using BBox (Corners) drop position is the average of the 4 bottom corners of the bounds.<br />
+When using BBox (Center) drop is calculated from the center of the bounds.</p>
+
+<hr />
+
+<h3 id="the-other-stuff">The Other Stuff</h3>
+
+<p>The node graph itself is pretty basic, as the drop is all calculated through a python node inside the network. But here it is for those who are interested:</p>
+
+<p><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Drop/node_graph.jpg?raw=true" alt="Image" class="center-image" /></p>
+
+<p>And here’s a gist of the python code for the actual drop:</p>
+
+<style type="text/css">
+  .gist-file
+  .gist-data {max-height: 500px;}
+</style>
+
+<script src="https://gist.github.com/Bailey3D/7d8f17750df1b33481070e6542cfd7f0.js"></script>]]></content><author><name>Bailey Martin</name></author><category term="Houdini" /><category term="Assets" /><category term="Tools" /><category term="Pipeline" /><summary type="html"><![CDATA[Houdin script used to drop geometry to input terrain with different drop modes.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Drop/thumb.png?raw=true" /><media:content medium="image" url="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Drop/thumb.png?raw=true" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Tree Root Generator (Houdini)</title><link href="http://0.0.0.0:4000/2021/10/30/space_colonisation/" rel="alternate" type="text/html" title="Tree Root Generator (Houdini)" /><published>2021-10-30T00:00:00+00:00</published><updated>2021-10-30T00:00:00+00:00</updated><id>http://0.0.0.0:4000/2021/10/30/space_colonisation</id><content type="html" xml:base="http://0.0.0.0:4000/2021/10/30/space_colonisation/"><![CDATA[<p>This is a Houdini based tool used to generate tree roots from input spawn positions, with a variety of inputs.</p>
+
+<p>It uses a Space Colonization algorithm for branch generation rather than L systems. This algorithm typically gives a more realistic distribution of branches, 
+as each node is fighting against other existing nodes for growth space.</p>
+
+<p><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Roots/thumb.gif?raw=true" alt="Image" class="center-image" /></p>
+
+<hr />
+
+<h3 id="space-colonization">Space Colonization<br /></h3>
+
+<p>Compared to typical branch generation methods that work outward from generated branches, the Space Colonization method works kind of in reverse.
+The the generator is given a series of input “Attractors” which act as possible target positions for branches to grow toward. During each cycle all attractors are looped over to find the nearest Node (knot of a branch) within a maximum attraction distance, and then a new node is created at the average position for each nodes closest attractors.</p>
+
+<p>You can see this in action in the gifs below. Where the nodes work outward into the available attractor positions.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><b>Space Colonization - Single Node</b></th>
+      <th style="text-align: center"><b>Space Colonization - Multiple Nodes</b></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Roots/space_colonisation_single.gif?raw=true" alt="Image" /></td>
+      <td style="text-align: center"><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Roots/space_colonisation_multi.gif?raw=true" alt="Image" /></td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Roots are spawned from a single node.<br /> The roots are free to expand as far as possible as they<br />are only fighting against themselves.</td>
+      <td style="text-align: center">Roots are spawned from multiple nodes.<br /> Each root is fighting with both itself and its siblings.<br /> Resulting in a system that has to fight for growth space.</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th><b>Space Colonization - Inside a 3D Volume</b></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Roots/space_colonization_volume.gif?raw=true" alt="Image" /></td>
+    </tr>
+    <tr>
+      <td>Since the space colonization algorithm goes of possible attraction points, data can be generated on any input volume.</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h3 id="inputs">Inputs</h3>
+
+<p><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Roots/inputs.jpg?raw=true" alt="Image" class="center-image" /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Input</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Spawn Positions</b></td>
+      <td>A series of vertices acting as spawn positions for the roots.</td>
+    </tr>
+    <tr>
+      <td><b>Spawn Volume</b></td>
+      <td>Geometry used as the spawn volume for the attraction points.</td>
+    </tr>
+    <tr>
+      <td><b>Distribution Bounds</b></td>
+      <td>Geometry used as the bounds for all attraction points. Positions outside of the geometry are disallowed.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="parameters">Parameters</h3>
+
+<p><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Roots/properties.jpg?raw=true" alt="Image" class="center-image" /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Generation Method</b></td>
+      <td>Method used to distribute the node attraction points.</td>
+    </tr>
+    <tr>
+      <td>Surface</td>
+      <td>Attraction points are distributed only on the surface of the spawn volume</td>
+    </tr>
+    <tr>
+      <td>Volume</td>
+      <td>Attraction points are distributed anywhere within the spawn volume</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>Recursion Depth</b></td>
+      <td>Number of loops used for the generation algorithm.</td>
+    </tr>
+    <tr>
+      <td><b>Attraction Point Density</b></td>
+      <td>Density of the attraction point generation (10cm² for surface - 10cm³ for volume)</td>
+    </tr>
+    <tr>
+      <td><b>Attraction Radius</b></td>
+      <td>Distance a valid Node must be from an attraction point to be considered a valid target (cm)</td>
+    </tr>
+    <tr>
+      <td><b>Attraction Deadzone</b></td>
+      <td>Any attraction points closer than this value to a node are considered occupied.</td>
+    </tr>
+    <tr>
+      <td><b>Max Branch Levels</b></td>
+      <td>Maximum level depth of branches allowed (Ie, 3 = root -&gt; branch -&gt; twig)</td>
+    </tr>
+    <tr>
+      <td><b>Max Child Branches</b></td>
+      <td>Maxumum amount of child branches a single branch can have.</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>Root Thickness</b></td>
+      <td>Thickness in centimeters of the branch. This is multiplied by current branch level (Ie, thickness of 3 will result in level 1 being 3cm, level 2 being 2cm, level 3 being 1cm)</td>
+    </tr>
+    <tr>
+      <td><b>Root Smoothness</b></td>
+      <td>Optional post smoothing of the generated root splines.</td>
+    </tr>
+    <tr>
+      <td><b>Roots Subdivisions</b></td>
+      <td>Number of cylindrical edges in each root. Level 0 branches will use this value, with each later level dropping the density by 1 until a minimum of 3 is reached.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="examples">Examples</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th><b>Generation Method : Surface</b></th>
+      <th>Generation Method: Volume</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Roots/surface.jpg?raw=true" alt="Image" /></td>
+      <td><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Roots/volume.jpg?raw=true" alt="Image" /></td>
+    </tr>
+    <tr>
+      <td>Example of attraction point distribution on surface mode.</td>
+      <td>Example of attraction point distribution on volume mode.</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th><b>Max Branch Levels : 2</b></th>
+      <th><b>Max Branch Levels : 6</b></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Roots/2_levels.jpg?raw=true" alt="Image" /></td>
+      <td><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Roots/6_levels.jpg?raw=true" alt="Image" /></td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th><b>Conforming To Environments</b></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Roots/wall_example.gif?raw=true" alt="Image" /></td>
+    </tr>
+    <tr>
+      <td>Since any input geometry can be given, the roots can conform to any environment. Here you can see them creeping up a wall.<br />With some minor changes the algorithm could also raycast into geometry to ensure only attraction points on one given side of a surface can interfere with each other (at the cost of generation times).</td>
+    </tr>
+  </tbody>
+</table>]]></content><author><name>Bailey Martin</name></author><category term="Houdini" /><category term="Python" /><category term="Assets" /><category term="Tools" /><category term="Pipeline" /><summary type="html"><![CDATA[..]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Roots/thumb.gif?raw=true" /><media:content medium="image" url="https://github.com/Bailey3D-Website/2021/blob/main/projects/Houdini%20Roots/thumb.gif?raw=true" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Juniper</title><link href="http://0.0.0.0:4000/2021/08/30/juniper/" rel="alternate" type="text/html" title="Juniper" /><published>2021-08-30T00:00:00+00:00</published><updated>2021-08-30T00:00:00+00:00</updated><id>http://0.0.0.0:4000/2021/08/30/juniper</id><content type="html" xml:base="http://0.0.0.0:4000/2021/08/30/juniper/"><![CDATA[]]></content><author><name>Bailey Martin</name></author><category term="Python" /><category term="DCC" /><category term="Pipeline" /><category term="Tools" /><category term="Framework" /><summary type="html"><![CDATA[Juniper is a unified scripting framework - for use across a variety of applications which include an embedded Python interpreter. This project has been moved to GitHub. You will be redirected automatically, or you can click here to visit the Juniper repository.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://github.com/Bailey3D-Website/2021/blob/main/projects/Juniper/juniper.png?raw=true" /><media:content medium="image" url="https://github.com/Bailey3D-Website/2021/blob/main/projects/Juniper/juniper.png?raw=true" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Asset Import / Export Tools</title><link href="http://0.0.0.0:4000/2020/10/30/asset_export_tools/" rel="alternate" type="text/html" title="Asset Import / Export Tools" /><published>2020-10-30T00:00:00+00:00</published><updated>2020-10-30T00:00:00+00:00</updated><id>http://0.0.0.0:4000/2020/10/30/asset_export_tools</id><content type="html" xml:base="http://0.0.0.0:4000/2020/10/30/asset_export_tools/"><![CDATA[<p>These are a series of tools written to automate the general import and export pipeline of different asset types from various DCC packages, into a final game engine (In this case Unreal).</p>
+
+<p>The main aim with these tools is to take various processes which by default take a series of clicks (and a bit of careful thought) and condense them down to 1 or 2 button clicks, and removing the thinking step all together.</p>
+
+<p>The tools are were all built around an asset pipeline I’m using for my personal projects, so portability is very limited.
+However all of the source is available <a href="https://github.com/Juniper3d/Plugin-AssetLibrary" target="_blank">here<a> for you to pick through as you please.</a></a></p>
+
+<p>The codebase is also all built around my <a href="https://github.com/Juniper3d/Juniper" target="_blank">Juniper Tools Framework<a> which aims to further standardize the tools pipeline across multiple DCC packages. Feel free to take a look at that.</a></a></p>
+
+<h2 id="material-exporter-substance-designer">Material Exporter <small><i>(Substance Designer)</i></small></h2>
+
+<p>Tool used to auto-export the currently opened Material Graph, and all child graphs.</p>
+
+<p>What happens when the tool is ran: <br />
+<strong>1 - Texture Exporting:</strong> All textures are updated and exported <br />
+<strong>2 - Material Metadata:</strong> A <code class="language-plaintext highlighter-rouge">{mat_name}.material</code> metadata file is generated (I’ll cover this in the unreal export) <br />
+<strong>3 - Unreal Reimport:</strong> If Unreal is open, the textures are re-imported (à la live link) <br />
+<strong>4 - SBSAR Export:</strong> A <code class="language-plaintext highlighter-rouge">{mat_name}.SBSAR</code> file automatically is generated/updated (for use in Substance Painter) <br /></p>
+
+<p><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Exporters/material_editor.png?raw=true" alt="Image" /></p>
+
+<h2 id="material-refresh-substance-designer">Material Refresh <small><i>(Substance Designer)</i></small></h2>
+
+<p>Automatically imports the current Material into Unreal. Automatically taking care of things such as, Texture Properties, Material Generation, Asset Dependency Importing.</p>
+
+<p>Changing the material import proces to: <br />
+<strong>1 - Re-import:</strong> Material is imported to Unreal from a single button click, no more navigating and picking files, it’s all automated.</p>
+
+<p>From the previously cumbersom process of: <br />
+<del><strong>1 - Open Unreal:</strong></del> Must swap to the program before starting <br />
+<del><strong>2 - Find in Content Browser:</strong></del>_ Hand find and select all source assets to reimport. Multiple times if the files are in different source folders. <br />
+<del><strong>3 - Pick Import Properties:</strong></del> For new assets things such as texture properties (compression, type, etc) were previously hand done. <br />
+<del><strong>4 - Build Material:</strong></del> For new materials the material would need manually creating.</p>
+
+<p><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Exporters/designer_to_unreal.png?raw=true" alt="Image" /></p>
+
+<h2 id="material-importer-substance-designer">Material Importer <small><i>(Substance Designer)</i></small></h2>
+
+<p>Used for quick loading of materials. Gathers all valid ‘.material’ files found in the asset library, and adds them to a single combo box.</p>
+
+<p>Removes the task of navigating through all folders to find materials - this can save a lot of time depending on how big the asset library is.</p>
+
+<h2 id="geometry-exporter-3ds-max">Geometry Exporter <small><i>(3DS Max)</i></small></h2>
+
+<p>Exports a currently opened ‘.max’ file as FBX - along with associated materials, using a couple of methods.</p>
+
+<p>This is what happens when the exporter is ran:</p>
+
+<p><strong>1a - Single Export:</strong> Used when a single sub-mesh is found in the Max file <br />
+<img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Exporters/single_export.png?raw=true" alt="Image" /> <br />
+<strong>1b - Multi Export:</strong> Exports a series of meshes from the file. Layers beginning with ‘SM_’ denote unique meshes to be exported. <br />
+<img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Exporters/multi_export.png?raw=true" alt="Image" /> <br />
+<strong>2 - Material Processing:</strong> Material IDs are baked down to ensure only used materials are exported (0..NUM) <br />
+<strong>3 - Metadata Export:</strong> A ‘.geometry’ file is generated per-mesh containing metadata on the asset (such as material paths, and source file data).</p>
+
+<h2 id="material-importer-unreal">Material Importer <small><i>(Unreal)</i></small></h2>
+
+<p><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Exporters/unreal_import.png?raw=true" alt="Image" /></p>
+
+<p>As mentioned previously, this can either be automatic (on export), or manual - this will cover the manual portion. <br />
+There’s also a batch mode which whill import all materials. Although this needs more work to ensure only “dirty” assets are updated.</p>
+
+<p>This takes the path of a ‘.material’ file, and automatically imports it to unreal, along with some other things. Depending on how many assets your library has, this can save anywhere from minutes, to hours of work.</p>
+
+<p>This is what happens when import is ran: <br />
+<strong>1 - Create Unreal Material:</strong> A new material instance is created (on first import) <br />
+<strong>2 - Set Shader:</strong> A parent master material is applied - if set in the host application (see ‘Shader Exporter’ below) <br />
+<strong>3 - Import Textures:</strong> All texture dependencies are imported (this means no hand importing all wanted textures) <br />
+<strong>4 - Set Parameters:</strong> All texture parameters are set from the ‘.material’ file</p>
+
+<h2 id="geometry-importer-unreal">Geometry Importer <small><i>(Unreal)</i></small></h2>
+
+<p>Similar to the Material Importer, this imports a geometry asset from a ‘.geometry’ file. It will also import the material and texture dependencies if they don’t already exist.</p>
+
+<p><br /></p>
+
+<h2 id="shader-exporter-unreal">Shader Exporter <small><i>(Unreal)</i></small></h2>
+
+<p>A smaller, but useful tool, which will loop over all Master Materials in the project, and serialize them to a <code class="language-plaintext highlighter-rouge">{shader_name}.shader</code> file.
+Useful as all existing ‘.shader’ files are then exposed to external Import/Export tools. Meaning things such as parent master materials can be edited per-material outside of Unreal.</p>
+
+<p>This file is ‘.json’ based, and stores things such as:</p>
+<ul>
+  <li>Parameters (Ie, Vector, Float, Bool, etc.)</li>
+  <li>Properties (Statically compiled properties - Ie, “Parent Shader”, “Two Sided?”)</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="material-exporter-unreal">Material Exporter <small><i>(Unreal)</i></small></h2>
+
+<p>This tool serializes <i>all</i> materials inside the currently opened unreal project out to ‘.material’ files.<br />
+This adds the option for essentially editing materials outside of the host Unreal instance. Where they can be auto-imported back into the engine. It’s a bit of a workaround for the fact everything in unreal is a binary ‘.uasset’ file.</p>
+
+<p>Again, there’s more that could be done here to combat the two-way material editing issues which may come from editing inside Unreal, and another host process.</p>
+
+<p>Exported data includes:</p>
+<ul>
+  <li>All Material Parameters (Ie, float, vector, etc)</li>
+  <li>All Texture Parameters (with paths relative to the project)</li>
+</ul>]]></content><author><name>Bailey Martin</name></author><category term="Python" /><category term="Assets" /><category term="Tools" /><category term="Pipeline" /><summary type="html"><![CDATA[A series of tools for automating and standardising the export and import process for common DCC packages.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://github.com/Bailey3D-Website/2021/blob/main/projects/Exporters/thumb.png?raw=true" /><media:content medium="image" url="https://github.com/Bailey3D-Website/2021/blob/main/projects/Exporters/thumb.png?raw=true" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Cloth Shader</title><link href="http://0.0.0.0:4000/2020/10/30/cloth_shader/" rel="alternate" type="text/html" title="Cloth Shader" /><published>2020-10-30T00:00:00+00:00</published><updated>2020-10-30T00:00:00+00:00</updated><id>http://0.0.0.0:4000/2020/10/30/cloth_shader</id><content type="html" xml:base="http://0.0.0.0:4000/2020/10/30/cloth_shader/"><![CDATA[<p>This was experiment in cloth shading. This uses a few different methods to go from a standard surface / cloth brdf to something more reminiscent of an actual fibrous surface.</p>
+
+<p>A few of the main effects this shader utilizes include:</p>
+
+<ul>
+  <li>
+    <p>Single layer parallax shadowing (for the fuzz layer)</p>
+  </li>
+  <li>
+    <p>High-frequency normals calculated from height maps</p>
+  </li>
+  <li>
+    <p>Curvature edge masking, for altering opacity at grazing angles</p>
+  </li>
+  <li>
+    <p>Specular occlusion for the fibers to help simulate the self shadowing and fuzzyness of the surface</p>
+  </li>
+  <li>
+    <p>Low frequency normals (for larger scale surface deformation)</p>
+  </li>
+  <li>
+    <p>Statically compiled variants for using Colour Tint Maps and Dual-tone tinting</p>
+  </li>
+</ul>
+
+<p><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Cloth%20Shading/cloth_turnaround.gif?raw=true" alt="Image" class="center-image" /></p>
+
+<p><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Cloth%20Shading/07.png?raw=true" alt="Image" class="center-image" />
+(Example of the data maps used)</p>
+
+<h2 id="renders">Renders:</h2>
+
+<p><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Cloth%20Shading/03.png?raw=true" alt="Image" class="center-image" /></p>
+
+<p><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Cloth%20Shading/materials.png?raw=true" alt="Image" class="center-image" /></p>
+
+<p><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Cloth%20Shading/02.png?raw=true" alt="Image" class="center-image" /></p>]]></content><author><name>Bailey Martin</name></author><category term="Shaders" /><category term="Lighting" /><summary type="html"><![CDATA[Study in creating a custom cloth shader with realistic fuzz and fiber masking.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://github.com/Bailey3D-Website/2021/blob/main/projects/Cloth%20Shading/cloth_turnaround.gif?raw=true" /><media:content medium="image" url="https://github.com/Bailey3D-Website/2021/blob/main/projects/Cloth%20Shading/cloth_turnaround.gif?raw=true" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">HLSL Shader Library In Unreal</title><link href="http://0.0.0.0:4000/2020/10/30/ue4_shader_tools/" rel="alternate" type="text/html" title="HLSL Shader Library In Unreal" /><published>2020-10-30T00:00:00+00:00</published><updated>2020-10-30T00:00:00+00:00</updated><id>http://0.0.0.0:4000/2020/10/30/ue4_shader_tools</id><content type="html" xml:base="http://0.0.0.0:4000/2020/10/30/ue4_shader_tools/"><![CDATA[<p>As someone who has experience with using HLSL for shader coding, the lack of HLSL support in Unreal has always frustrated me.</p>
+
+<p>This Python library aims to add some rudimentary support for using external HLSL libraries from within Unreal Material Graphs, using a mix of techniques listed below.</p>
+
+<h3 id="whats-the-aim">What’s the Aim?</h3>
+<section id="what_is" />
+
+<p>The aim with this is to be able to use an external library containing individual ‘.HLSL’ files inside of unreal, using <code class="language-plaintext highlighter-rouge">#include</code> from inside a custom node.
+But before we can do that there are a few hurdles that need to be addressed:</p>
+
+<p><strong>1</strong> - Unreal doesn’t support custom Shader #includes by default <br />
+<strong>2</strong> - All shaders must be inside the current project’s “project/shaders” directory to be usable <br />
+<strong>3</strong> - All shader files must be in ‘.USF’ or ‘.USH’ format - ‘.HLSL’ is not allowed <br />
+<strong>4</strong> - Unreal ‘Custom’ nodes require all functions to be within some sort of scope <br /></p>
+
+<hr />
+
+<h3 id="supporting-external-shader-includes-in-unreal">Supporting External Shader Includes in Unreal:</h3>
+<section id="includes" />
+
+<p>The first issue comes with the fact that Unreal by default doesn’t enable #including “project/shaders” directory inside of custom nodes - trying to include them will cause a compiler error.</p>
+
+<p>To fix this we’ll need to add in a search path for the shaders. I’ve done this in a plugin since that’s where all of my shaders are stored, but this will work just as well inside of your <code class="language-plaintext highlighter-rouge">ProjectName.h</code> and <code class="language-plaintext highlighter-rouge">ProjectName.cpp</code> files.</p>
+
+<p>This is relatively simple, and just requires us to add an extra Shader Source Directory Mapping to the project.
+You can see how I’ve set this up in the code below. In my case there is some extra code for reading the path from the Registry, but that can be omitted if you’re using a static path.</p>
+
+<script src="https://gist.github.com/Bailey3D/4786196223ed5e136239958d81c370dc.js"></script>
+
+<script src="https://gist.github.com/Bailey3D/2aa821a85a313c02a3060137aa8dd26f.js"></script>
+
+<p>All being well, this should allow you to #include ‘.USH’ and ‘.USF’ files in your Project/Plugin Shaders directory.</p>
+
+<h3 id="creating-a-library-watchdog">Creating a Library ‘Watchdog’</h3>
+<section id="watchdog" />
+
+<p>The second hurdle comes from the fact that all shaders must be inside of the “project/shaders” directory. While it’s not technically true that they won’t work in an external directory, the fact that all files have to be ‘.USH’ or ‘.USF’ files means that integrating it into a raw ‘.HLSL’ library will get messy fast.</p>
+
+<p>For this reason, I’ve created a python library to create a folder watcher on our external ‘pure’ HLSL library, which watches for any and all file changes, and copies the files over to the project’s Shaders library.</p>
+
+<p>Since this isn’t a tutorial, I’ll post links to the source files at the end of this section if you’d like to take a look at how it’s done. But the general overview is:</p>
+
+<p><strong>- On Engine Startup:</strong> Sets off a script which watches for changes to files in the external library <br />
+<strong>- On Change Detected:</strong> Copies all files from the external library to the project’s Shaders directory <br />
+<strong>- Convert to USF:</strong> covered in the next section, but this is required since .HLSL cannot be used in Unreal <br /></p>
+
+<p>Example source files can be found here: <a href="https://github.com/Bailey3D/Juniper/blob/main/lib/python/juniper/framework/types/folder_watcher.py" target="_blank">folder_watcher.py</a> <b>+</b> 
+<a href="https://github.com/Bailey3D/Juniper-AssetLibrary/blob/main/scripts/ue4/startup/1/shader_source_watcher.py" target="_blank">shader_source_watcher.py</a> <b>+</b> 
+<a href="https://github.com/Bailey3D/Juniper-AssetLibrary/blob/main/lib/python/asset_library/programs/ue4/asset_management/shaders.py" target="_blank">shaders.py</a></p>
+
+<h3 id="converting-hlsl-to-usf">Converting .HLSL to .USF</h3>
+<section id="converting" />
+
+<p>A bit of a continuation of the previous point. But since Unreal doesn’t support ‘.HLSL’ files, we’ll need to convert all references to ‘.HLSL’ over to ‘.USH’</p>
+
+<p>This is done as part of the conversion scripts, it pretty much has two steps: <br />
+<strong>1 - Change File Type:</strong> Replace the ‘.hlsl’ file extension with ‘.ush’ <br />
+<strong>2 - Replace in Files:</strong> Convert all ‘.hlsl’ #includes to ‘.ush’ includes <br /></p>
+
+<h3 id="creating-a-shader-library--function-scoping">Creating a Shader Library / Function Scoping</h3>
+<section id="functions" />
+
+<p>The last issue is that, everything inside of a ‘Custom’ node in unreal must be inside some sort of scope. The trouble comes down to how this is accessed. If you were to just treat it like a regular ‘.HLSL’ file by creating them in the scope of the main file, unreal will throw a compiler error.</p>
+
+<p>I get around this by storing everything within a ‘struct’. It can be as simple as creating a struct with everything inside and then instancing the struct. But that’s still a bit fiddly.</p>
+
+<p>Instead we can use the HLSL preprocessor to automatically create the instance of the struct. It’s a bit of a hack, but works nicely once you’re used to setting it up.</p>
+
+<p>To do this I have a file ‘ defines.hlsl’ which contains a macro called ‘container’. A container is essentially treated like a namespace or singleton (albeit a bit more limited):</p>
+
+<script src="https://gist.github.com/Bailey3D/482b687fb6a4588adb6abae328526f0a.js"></script>
+
+<p>And here’s an example of how a container is populated, and how to call the generated container:</p>
+
+<script src="https://gist.github.com/Bailey3D/f6dc98c141012f90a19bdaa576828bc6.js"></script>
+
+<script src="https://gist.github.com/Bailey3D/ef9ee1c353decc5e6f449b565ca3ed32.js"></script>
+
+<hr />
+<section id="conclusion" />
+
+<p>And that’s it - this has allowed me to essentially #include and use data from inside of an external HLSL library directly from Unreal. It’s a bit convoluted, but is better than coding directly inside of the Custom nodes, or having to create an actual engine side shader.</p>
+
+<p>I do hope Unreal gets some better shader coding support in the future, I’d love to be able to use HLSL more than just through a custom node and without all these hacks. But until then, I’ll be using this method.</p>]]></content><author><name>Bailey Martin</name></author><category term="Unreal" /><category term="HLSL" /><category term="Python" /><category term="Assets" /><category term="Tools" /><category term="Pipeline" /><category term="Shaders" /><summary type="html"><![CDATA[Python based tool used to automate generation of .USF files from external HLSL Libraries]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://github.com/Bailey3D-Website/2021/blob/main/projects/HLSL%20Library/thumb.png?raw=true" /><media:content medium="image" url="https://github.com/Bailey3D-Website/2021/blob/main/projects/HLSL%20Library/thumb.png?raw=true" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Volcano Diorama</title><link href="http://0.0.0.0:4000/2019/09/30/volcano/" rel="alternate" type="text/html" title="Volcano Diorama" /><published>2019-09-30T00:00:00+00:00</published><updated>2019-09-30T00:00:00+00:00</updated><id>http://0.0.0.0:4000/2019/09/30/volcano</id><content type="html" xml:base="http://0.0.0.0:4000/2019/09/30/volcano/"><![CDATA[<p>Tool for creating terrain in Substance designer and rendering in realtime, allowing for realtime terrain tweaking.</p>
+
+<p><img src="https://github.com/Bailey3D-Website/2020/blob/main/projects/Volcano/thumb.gif?raw=true" alt="Image" class="center-image" /></p>
+
+<p><img src="https://github.com/Bailey3D-Website/2020/blob/main/projects/Volcano/ProceduralTerrain_Render_02.gif?raw=true" alt="Image" class="center-image" /></p>
+
+<hr />
+
+<p><img src="https://github.com/Bailey3D-Website/2020/blob/main/projects/Volcano/ProceduralTerrain_BumpOffset.gif?raw=true" alt="Image" class="center-image" /></p>
+
+<p>Fake volumetric material used to cheaply simulate fire effect.</p>
+
+<hr />
+
+<p><img src="https://github.com/Bailey3D-Website/2020/blob/main/projects/Volcano/ProceduralTerrain_Mat_Rocks.png?raw=true" alt="Image" class="center-image" /></p>
+
+<p>Materials for the volcano were created procedurally in Substance Designer.</p>
+
+<hr />
+
+<p><img src="https://github.com/Bailey3D-Website/2020/blob/main/projects/Volcano/ProceduralTerrain_Nodes.png?raw=true" alt="Image" class="center-image" /></p>
+
+<p>The volcano itself was generated via a set of custom nodes for Substance designer.</p>
+
+<hr />
+
+<p><img src="https://github.com/Bailey3D-Website/2020/blob/main/projects/Volcano/ProceduralTerrain_NiagaraStack.png?raw=true" alt="Image" class="center-image" /></p>
+
+<p>All particles / effects were created via Niagara.</p>]]></content><author><name>Bailey Martin</name></author><category term="Shaders" /><category term="Lighting" /><category term="Art" /><category term="Unreal" /><summary type="html"><![CDATA[Tool for creating terrain in Substance designer and rendering in realtime, allowing for realtime terrain tweaking.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://github.com/Bailey3D-Website/2020/blob/main/projects/Volcano/thumb.gif?raw=true" /><media:content medium="image" url="https://github.com/Bailey3D-Website/2020/blob/main/projects/Volcano/thumb.gif?raw=true" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Iridescense Shader</title><link href="http://0.0.0.0:4000/2019/04/30/iridescent/" rel="alternate" type="text/html" title="Iridescense Shader" /><published>2019-04-30T00:00:00+00:00</published><updated>2019-04-30T00:00:00+00:00</updated><id>http://0.0.0.0:4000/2019/04/30/iridescent</id><content type="html" xml:base="http://0.0.0.0:4000/2019/04/30/iridescent/"><![CDATA[<p>This pack contains presets for a variety of different Iridescent based effects.</p>
+
+<p>The material is built up from a base material function, which can be easily plugged into existing materials (to add the effect wherever you like)</p>
+
+<p>The effect is ready to use out of the box. It contains one texture which can be swapped out as desired to give different effects.</p>
+
+<p>This pack is for sale <a href="https://www.fab.com/listings/4e908bd7-2fae-4d5e-a913-12a014fad980">here on the Unreal marketplace</a>.</p>
+
+<p><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Iridescent/thumb.png?raw=true" alt="Image" class="center-image" /></p>
+
+<hr />
+
+<p><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Iridescent/img_01.png?raw=true" alt="Image" class="center-image" />
+<img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Iridescent/img_02.png?raw=true" alt="Image" class="center-image" />
+<img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Iridescent/img_03.png?raw=true" alt="Image" class="center-image" />
+<img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Iridescent/img_04.png?raw=true" alt="Image" class="center-image" /></p>
+
+<hr />
+
+<h2 id="parameters">Parameters</h2>
+
+<p><img src="https://github.com/Bailey3D-Website/2021/blob/main/projects/Iridescent/parameters.png?raw=true" alt="Image" class="center-image" /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Material Attributes</b></td>
+      <td>Input material attributes (the base surface to apply the effect to)</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>Input Metallic</b></td>
+      <td>Metallic for the iridescent effect.</td>
+    </tr>
+    <tr>
+      <td><b>Input Roughness</b></td>
+      <td>Roughness for the iridescent effect.</td>
+    </tr>
+    <tr>
+      <td><b>Surface Uniformity</b></td>
+      <td>How flat the surface should be treated.</td>
+    </tr>
+    <tr>
+      <td><b>Input Specular</b></td>
+      <td>Specular for the iridescent effect.</td>
+    </tr>
+    <tr>
+      <td><b>Effect Strength</b></td>
+      <td>Overall strength of the iridescent effect.</td>
+    </tr>
+    <tr>
+      <td><b>Body Strength</b></td>
+      <td>OVerall strength of the iridescent distortion in the body of the surface.</td>
+    </tr>
+    <tr>
+      <td><b>Exponent</b></td>
+      <td>Tighten / loosen the fresnel effect.</td>
+    </tr>
+    <tr>
+      <td><b>Frequency</b></td>
+      <td>How high/low frequency the noise is for distortion.</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>Iridescent Tint</b></td>
+      <td>Base tint for the iridescent effect.</td>
+    </tr>
+    <tr>
+      <td><b>Emissive Injection Strength</b></td>
+      <td>Optional multiplier for when injection the iridescent coluors into the emissive buffer.</td>
+    </tr>
+    <tr>
+      <td><b>Saturation</b></td>
+      <td>Saturation boost for the iridescent colours.</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>Pixel Normals</b></td>
+      <td>World space normals. Used for surface distortion. Defaults to PixelNormalWS. (Note: World space - not tangent space)</td>
+    </tr>
+    <tr>
+      <td><b>Pixel Normal Strength</b></td>
+      <td>Strength of the pixel normals. This is useful for lessening the effect a normal map will have on the surface.</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>Mask</b></td>
+      <td>Optional mask for the iridescent effect. You can use this for vertex painting / texture masking.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="limitations">Limitations</h2>
+
+<ul>
+  <li>True Iridescent lighting is not possible to recreate in Unreal without per-pixel lighting. Instead, this implementation uses a mix of camera-relative hue shifting and a custom lightwrap effect.</li>
+</ul>]]></content><author><name>Bailey Martin</name></author><category term="Shaders" /><category term="Lighting" /><category term="Art" /><category term="Unreal" /><summary type="html"><![CDATA[Shader simulating an iridescent surface, similar to that seen in Oil and Beetle shells.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://github.com/Bailey3D-Website/2021/blob/main/projects/Iridescent/thumb.png?raw=true" /><media:content medium="image" url="https://github.com/Bailey3D-Website/2021/blob/main/projects/Iridescent/thumb.png?raw=true" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Ocean Rendering</title><link href="http://0.0.0.0:4000/2019/03/30/gerstner_waves/" rel="alternate" type="text/html" title="Ocean Rendering" /><published>2019-03-30T00:00:00+00:00</published><updated>2019-03-30T00:00:00+00:00</updated><id>http://0.0.0.0:4000/2019/03/30/gerstner_waves</id><content type="html" xml:base="http://0.0.0.0:4000/2019/03/30/gerstner_waves/"><![CDATA[<p>This was a project aiming to create a realistic looking ocean shader with sea foam, waves and realistic looking lighting.
+The shader code was primarily coded in HLSL, and pieced together in Unreal for the final renders.</p>
+
+<p><img src="https://github.com/Bailey3D-Website/2020/blob/main/projects/Gerstner%20Waves/thumb.gif?raw=true" alt="Image" class="center-image" /></p>
+
+<p>The way that ocean rendering is typically simulated in 3d rendering is using <strong>Gerstner Waves</strong>.
+Unlike sine waves which will only displace the surface in the up axis (z), Gerstner Waves offer a physically accurate simulation of how individual waves actually flow, by also offsetting the other two axis.</p>
+
+<p>You can see in the gif below how the vertices in the water plane move, with them getting more compact closer to the peaks, and less in the troths.</p>
+
+<p><img src="https://github.com/Bailey3D-Website/2020/blob/main/projects/Gerstner%20Waves/bailey-martin-ezgif-com-optimize.gif?raw=true" alt="Image" class="center-image" /></p>
+
+<hr />
+
+<h2 id="parameters-single-gerstner-wave">Parameters (Single Gerstner Wave)</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Amplitude</b></td>
+      <td>The overall height of the wave (in Centimeters in this case)</td>
+    </tr>
+    <tr>
+      <td><b>Steepness</b></td>
+      <td>Controls the “sharpness” of the wave</td>
+    </tr>
+    <tr>
+      <td><b>Phase</b></td>
+      <td>Overall speed of the Gerstner Wave</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>Direction</b></td>
+      <td>Direction vector for the flow of the wave (2 component to avoid expensive sin/cos calls for each function)</td>
+    </tr>
+    <tr>
+      <td><b>Scale</b></td>
+      <td>Additional multiplier for the final wave to scale up/down from a single parameter</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="parameters-wave-set">Parameters (Wave Set)</h2>
+
+<p>Additionally since it’s a wave we can combine multiple functions together, so I created a second function (creatively called) <strong>GerstnerWaves</strong>, which has a couple of extra inputs:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Waves Count</b></td>
+      <td>Overall number of wave layers in the gerstner wave. Each new wave is double the frequency which results in a more finer amount of detail as the loops progress.</td>
+    </tr>
+    <tr>
+      <td><b>Uniformity</b></td>
+      <td>Where a value of 1.0 will result in all waves moving in the same direction, while lower to 0.0 will result in each layer going in a direction further away than the previous. This is good to alter how random the surface ends up looking.</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h3 id="scattering">Scattering</h3>
+
+<p>On top of the other effects the shader includes a simulation of light scattering, while staying fully opaque.
+It uses a single directional light source to simulate the light scatter when viewing parallel to the suns vector.</p>
+
+<p><img src="https://github.com/Bailey3D-Website/2020/blob/main/projects/Gerstner%20Waves/bailey-martin-unnamed.jpg?raw=true" alt="Image" class="center-image" /></p>
+
+<hr />
+
+<h3 id="sea-foam">Sea Foam</h3>
+<p>Foam is an area that’s typically overlooked in some shaders, but found that even a subtle amount gives a nice effect. Unlike waves I couldn’t find a way of physically simulating this in realtime, so the way it is calculated uses some data from the Gerstner wave to create an ‘Amplitude Mask’.</p>
+
+<p>The foam mask was created in Substance Designer, and is a 2 channel mask of Worley noise distorted into a fluid like mask. It uses the a texture phasing method (described below) to give a nice fluid effect.</p>
+
+<p><img src="https://github.com/Bailey3D-Website/2020/blob/main/projects/Gerstner%20Waves/bailey-martin-asasd.gif?raw=true" alt="Image" class="center-image" /></p>
+
+<p><img src="https://github.com/Bailey3D-Website/2020/blob/main/projects/Gerstner%20Waves/bailey-martin-ezgif-com-resize22.jpg?raw=true" alt="Image" class="center-image" /></p>
+
+<hr />
+
+<h3 id="detailing-normals">Detailing Normals</h3>
+
+<p>Although the waves themselves do a large part in the realism of the shader, without additional surface detailing they end up looking quite flat. To fix this I used 3 sets of normals at different frequencies (High for main body detailing, Medium for subtle waves and Low for lower frequency ripples and surface disturbance).</p>
+
+<p>Normals alone tend to give a rather static and tiling look to the surface, so phasing between the textures in two states (similar to a flow map) also helps in avoiding this.</p>
+
+<p>Although the Gerstner calculations themselves do a huge part in making the shader feel realistic, without any additional surface detailing you’ll find that they still end up looking extremely flat.</p>
+
+<p><img src="https://github.com/Bailey3D-Website/2020/blob/main/projects/Gerstner%20Waves/bailey-martin-a809f0-b4ef25b74a3a42e78bf648c2352db3ae-mv2.gif?raw=true" alt="Image" class="center-image" /></p>]]></content><author><name>Bailey Martin</name></author><category term="Shaders" /><category term="Lighting" /><category term="Art" /><category term="HLSL" /><summary type="html"><![CDATA[Ocean shader system utilizing Gerstner waves for wave simulation and foam calculation.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://github.com/Bailey3D-Website/2020/blob/main/projects/Gerstner%20Waves/thumb.gif?raw=true" /><media:content medium="image" url="https://github.com/Bailey3D-Website/2020/blob/main/projects/Gerstner%20Waves/thumb.gif?raw=true" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Soviet Mines Environment</title><link href="http://0.0.0.0:4000/2018/11/30/soviet_mines_environment/" rel="alternate" type="text/html" title="Soviet Mines Environment" /><published>2018-11-30T00:00:00+00:00</published><updated>2018-11-30T00:00:00+00:00</updated><id>http://0.0.0.0:4000/2018/11/30/soviet_mines_environment</id><content type="html" xml:base="http://0.0.0.0:4000/2018/11/30/soviet_mines_environment/"><![CDATA[<p>Soviet Era Mineshaft 3D Environment.</p>
+
+<p>Based on a concept by James Dargie. Concept can be found here.</p>
+
+<p>Responsible for all aspects of the scene.</p>
+
+<p><img src="https://github.com/Bailey3D-Website/2019/blob/main/projects/Soviet%20Mines/thumb.png?raw=true" alt="Image" class="center-image" /></p>
+
+<p><img src="https://github.com/Bailey3D-Website/2019/blob/main/projects/Soviet%20Mines/bailey-bob-martin-render-scene-mines.jpg?raw=true" alt="Image" class="center-image" /></p>
+
+<p><img src="https://github.com/Bailey3D-Website/2019/blob/main/projects/Soviet%20Mines/bailey-bob-martin-render-scene-mainroom.jpg?raw=true" alt="Image" class="center-image" /></p>
+
+<p><img src="https://github.com/Bailey3D-Website/2019/blob/main/projects/Soviet%20Mines/bailey-bob-martin-render-materials.jpg?raw=true" alt="Image" class="center-image" /></p>
+
+<p><img src="https://github.com/Bailey3D-Website/2019/blob/main/projects/Soviet%20Mines/bailey-bob-martin-render-main-wireframe.jpg?raw=true" alt="Image" class="center-image" /></p>
+
+<p><img src="https://github.com/Bailey3D-Website/2019/blob/main/projects/Soviet%20Mines/bailey-bob-martin-render-main-lit.jpg?raw=true" alt="Image" class="center-image" /></p>
+
+<p><img src="https://github.com/Bailey3D-Website/2019/blob/main/projects/Soviet%20Mines/bailey-bob-martin-render-main-assets.jpg?raw=true" alt="Image" class="center-image" /></p>
+
+<p><img src="https://github.com/Bailey3D-Website/2019/blob/main/projects/Soviet%20Mines/bailey-bob-martin-fhhgfhfghfhg.gif?raw=true" alt="Image" class="center-image" /></p>]]></content><author><name>Bailey Martin</name></author><category term="Shader" /><category term="Lighting" /><category term="Environment Art" /><category term="Unreal" /><summary type="html"><![CDATA[Soviet Era Mineshaft 3D Environment.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://github.com/Bailey3D-Website/2019/blob/main/projects/Soviet%20Mines/thumb.png?raw=true" /><media:content medium="image" url="https://github.com/Bailey3D-Website/2019/blob/main/projects/Soviet%20Mines/thumb.png?raw=true" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
