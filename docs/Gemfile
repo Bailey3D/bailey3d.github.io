@@ -2,20 +2,15 @@
 
 source "https://rubygems.org"
 
-# Core Jekyll
-gem "jekyll", "~> 4.3"
-gem "kramdown-parser-gfm", "~> 1.1"
-# gem "bulma-clean-theme", "~> 1.3.0"
+# Use GitHub Pages gem for compatibility
+gem "github-pages", group: :jekyll_plugins
 
 # Bailey3D: Fix for live reload not working
 #           See: https://stackoverflow.com/questions/30682575/unable-to-load-the-eventmachine-c-extension-to-use-the-pure-ruby-reactor
 gem 'eventmachine', '1.2.7', git: 'https://github.com/eventmachine/eventmachine.git', tag: 'v1.2.7'
 
+# Additional plugins not included in github-pages
 group :jekyll_plugins do
-    gem "jekyll-feed", "~> 0.15"
-    gem "jekyll-sitemap", "~> 1.4"
-    gem "jekyll-paginate", "~> 1.1"
-    gem "jekyll-seo-tag", "~> 2.7"
     gem 'jekyll-redirect-from'
 end
 
