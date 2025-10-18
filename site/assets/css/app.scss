@@ -4,18 +4,40 @@
 @charset "utf-8";
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
-$family-sans-serif: 'Montserrat', sans-serif;
-$primary: #188eac !default;
-
-$tabs-link-active-color: $primary;
-$tabs-link-active-border-bottom-color: $primary;
-
-$modal-content-width: 800px;
-
-@import "../node_modules/bulma/bulma.sass";
-// @import "../node_modules/bulma/bulma.sass";
-// @import url('https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.css');
-
-.gh-sponsor {
-  color: #ea4aaa;
+:root {
+  --bulma-primary: #47a1d9;
+  --bulma-primary-invert: #FFFFFF;
+  --bulma-primary-focused: color-mix(in srgb, var(--bulma-primary) 90%, white 10%);
+  --hero-text-color: #FFFFFF;
 }
+
+.navbar-item,
+.navbar-link,
+.navbar-dropdown .navbar-item {
+  background-color: var(--bulma-primary);
+  color: var(--bulma-primary-invert);
+}
+
+.navbar-item:hover,
+.navbar-item.is-active,
+.navbar-link:hover,
+.navbar-dropdown .navbar-item:hover,
+.navbar-dropdown .navbar-item.is-active,
+.navbar-link.is-active {
+  background-color: var(--bulma-primary-focused) !important;
+  color: var(--bulma-primary-invert) !important;
+}
+
+.hero.is-primary .hero-body .title,
+.hero.is-primary .hero-body .subtitle,
+.hero.is-primary .hero-body p {
+  color: var(--hero-text-color);
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.33);
+}
+
+/* Set font family */
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+@import url('https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.css');

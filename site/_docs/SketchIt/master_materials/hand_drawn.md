@@ -19,18 +19,18 @@ store_name: sketch_it
 ### **Template: Pencil:**
 <section id="pencil"/>
 
-{% include image_slider.html id="pencil_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pencil/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pencil/pencil.jpeg" percent=0.25 %}
+{% include images/image_slider.html id="pencil_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pencil/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pencil/pencil.jpeg" percent=0.25 %}
 
 ### **Template: Vintage:**
 <section id="vintage"/>
 
-{% include image_slider.html id="vintage_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pencil/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pencil/vintage.jpeg" percent=0.25 %}
+{% include images/image_slider.html id="vintage_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pencil/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pencil/vintage.jpeg" percent=0.25 %}
 
 
 ### **Template: Notepad:**
 <section id="notepad"/>
 
-{% include image_slider.html id="notepad_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pencil/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pencil/notepad.jpeg" percent=0.25 %}
+{% include images/image_slider.html id="notepad_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pencil/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pencil/notepad.jpeg" percent=0.25 %}
 
 ---
 

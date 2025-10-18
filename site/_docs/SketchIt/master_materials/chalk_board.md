@@ -19,12 +19,12 @@ store_name: sketch_it
 ### **Template: Chalkboard:**
 <section id="chalk_board"/>
 
-{% include image_slider.html id="chalkboard_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/chalk/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/chalk/chalkboard.jpeg" percent=0.25 %}
+{% include images/image_slider.html id="chalkboard_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/chalk/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/chalk/chalkboard.jpeg" percent=0.25 %}
 
 ### **Template: Chalk Drawing:**
 <section id="chalk_drawing"/>
 
-{% include image_slider.html id="chalk_drawing_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/chalk/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/chalk/chalkdrawing.jpeg" percent=0.25 %}
+{% include images/image_slider.html id="chalk_drawing_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/chalk/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/chalk/chalkdrawing.jpeg" percent=0.25 %}
 
 ---
 

@@ -1,25 +1,16 @@
-# Site Settings
+# Core Website Settings
 lang: en
 title: Bailey3D
-tagline: Technical Art
-email: contact@bailey3d.com
+tagline: Technical Artist
+email: contact:bailey3d.com
 description: >
-  Technical Artist - Specialising in Pipeline, Tools, and Shaders.
+  Technical Artist Specialising in Pipelines and Tools.
 baseurl: ""
 url: "https://www.bailey3d.com"
 permalink: pretty
-favicon: "/assets/images/B3D_Logo.png"
-hero_image: /assets/images/banner.jpg
-theme: bulma-clean-theme
 
-# Build Settings
-livereload: true
-destination: ../.build/jekyll
-markdown: kramdown
-highlighter: rouge
-
-paginate: 5
-paginate_path: "/blog/page:num"
+google_analytics: G-YBL8T39XKG
+google-analytics: G-YBL8T39XKG
 
 plugins:
   - jekyll-sitemap
@@ -29,7 +20,21 @@ plugins:
   - kramdown-parser-gfm
   - jekyll-redirect-from
 
-# mimic GitHub Pages with --safe
+# Theming / Styling
+# remote_theme: chrisrhymes/bulma-clean-theme@v1.3.0
+favicon: https://assets.bailey3d.com/website.assets/icon.png
+hero_image: https://assets.bailey3d.com/website.assets/banner.jpg
+
+sass:
+  style: compressed
+  source_dir: _sass
+
+# Build
+livereload: true
+destination: .build/jekyll
+markdown: kramdown
+highlighter: rouge
+
 whitelist:
   - jekyll-sitemap
   - jekyll-gist
@@ -46,12 +51,23 @@ exclude:
   - vendor/gems/
   - vendor/ruby/
 
-sass:
-  style: compressed
-  source_dir: _sass
+# Pagination
+paginate: 5
+paginate_path: "/blog/page:num/"
 
-google_analytics: G-YBL8T39XKG
-google-analytics: G-YBL8T39XKG
+collections:
+  products:
+    output: true
+    layout: product
+    image: https://via.placeholder.com/800x600
+    show_sidebar: false
+
+  docs:
+    output: true
+    permalink: /:collection/:path/
+    layout: page
+    image: https://via.placeholder.com/800x600
+    show_sidebar: false
 
 defaults:
   -
@@ -80,20 +96,6 @@ defaults:
       show_sidebar: true
 
 footer_menu: example_footer_menu
-
-collections:
-  products:
-    output: true
-    layout: product
-    image: https://via.placeholder.com/800x600
-    show_sidebar: false
-
-  docs:
-    output: true
-    permalink: /:collection/:path/
-    layout: page
-    image: https://via.placeholder.com/800x600
-    show_sidebar: false
 
 # This list contains information on the portfolio / homepage entries
 # - The order of the list determines the order on the homepage

@@ -19,12 +19,12 @@ store_name: sketch_it
 ### **Template: Schematic:**
 <section id="schematic"/>
 
-{% include image_slider.html id="chalkboard_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/schematic/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/schematic/schematic.jpeg" percent=0.25 %}
+{% include images/image_slider.html id="chalkboard_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/schematic/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/schematic/schematic.jpeg" percent=0.25 %}
 
 ### **Template: Graph Paper:**
 <section id="graph_paper"/>
 
-{% include image_slider.html id="chalk_drawing_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/schematic/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/schematic/graph.jpeg" percent=0.25 %}
+{% include images/image_slider.html id="chalk_drawing_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/schematic/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/schematic/graph.jpeg" percent=0.25 %}
 
 ---
 

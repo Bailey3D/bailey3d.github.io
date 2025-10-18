@@ -26,12 +26,12 @@ store_name: sketch_it
 ### **Template: Charcoal:**
 <section id="charcoal"/>
 
-{% include image_slider.html id="charcoal_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/charcoal/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/charcoal/charcoal.jpeg" percent=0.25 %}
+{% include images/image_slider.html id="charcoal_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/charcoal/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/charcoal/charcoal.jpeg" percent=0.25 %}
 
 ### **Template: Pastel:**
 <section id="pastel"/>
 
-{% include image_slider.html id="pastel_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/charcoal/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/charcoal/pastel.jpeg" percent=0.25 %}
+{% include images/image_slider.html id="pastel_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/charcoal/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/charcoal/pastel.jpeg" percent=0.25 %}
 
 ---
 

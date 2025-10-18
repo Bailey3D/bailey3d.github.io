@@ -13,7 +13,7 @@
         "JEKYLL_CACHE_DIR": "/workspace/.cache/jekyll"
     },
     "postCreateCommand": "cd /workspace/site && bundle install",
-    "postStartCommand": "chmod +x /workspace/site/jekyll-startup.sh && /workspace/site/jekyll-startup.sh",
+    "postStartCommand": "chmod +x /workspace/site/serve.sh && /workspace/site/serve.sh",
     "forwardPorts": [4000],
     "customizations": {
         "vscode": {

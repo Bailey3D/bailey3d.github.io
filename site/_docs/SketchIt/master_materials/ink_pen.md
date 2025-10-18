@@ -19,17 +19,17 @@ store_name: sketch_it
 ### **Template: Byro:**
 <section id="byro"/>
 
-{% include image_slider.html id="byro_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pen/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pen/byro.jpeg" percent=0.25 %}
+{% include images/image_slider.html id="byro_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pen/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pen/byro.jpeg" percent=0.25 %}
 
 ### **Template: Ink Pen:**
 <section id="ink"/>
 
-{% include image_slider.html id="ink_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pen/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pen/ink.jpeg" percent=0.25 %}
+{% include images/image_slider.html id="ink_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pen/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pen/ink.jpeg" percent=0.25 %}
 
 ### **Template: Gel Pen:**
 <section id="gel"/>
 
-{% include image_slider.html id="gel_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pen/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pen/gel.jpeg" percent=0.25 %}
+{% include images/image_slider.html id="gel_slider" img1="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pen/off.jpeg" img2="https://raw.githubusercontent.com/Bailey3D-Website/2021/main/packages/SketchIt/renders/Comparisons/pen/gel.jpeg" percent=0.25 %}
 
 ---
 

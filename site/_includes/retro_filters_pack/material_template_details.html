@@ -36,8 +36,8 @@
 
 {% if include.before != nil and include.after != nil %}
 
-    {% include image_slider.html 
-        id=include.asset_name 
+    {% include images/image_slider.html
+        id=include.asset_name
         img1=include.before
         img2=include.after
         percent=0.25

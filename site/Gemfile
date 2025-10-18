@@ -5,7 +5,7 @@ source "https://rubygems.org"
 # Core Jekyll
 gem "jekyll", "~> 4.3"
 gem "kramdown-parser-gfm", "~> 1.1"
-gem "bulma-clean-theme", "~> 0.13.3"
+# gem "bulma-clean-theme", "~> 1.3.0"
 
 # Bailey3D: Fix for live reload not working
 #           See: https://stackoverflow.com/questions/30682575/unable-to-load-the-eventmachine-c-extension-to-use-the-pure-ruby-reactor
