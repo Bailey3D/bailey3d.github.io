@@ -26,7 +26,7 @@ store properties
 
 {% if page.title || page.subtitle || page.title_render %}
 <section class="hero {% if page.hero_height %} {{ page.hero_height }} {% else %} is-medium {% endif %} is-bold is-primary" {% if l_hero_image %} style="background: url('{{ l_hero_image }}') no-repeat center center; background-size: cover;" {% endif %}>
-    <div class="hero-body {% if page.hero_darken %} hero-darken {% endif %}">
+    <div class="hero-body {% if page.hero_darken %} dark {% endif %}">
         <div class="container">
 
             {% if page.title_render %}
@@ -52,7 +52,7 @@ store properties
                     {% if l_store_price %}
                         <a class="button is-primary">{{ l_store_price }}</a>
                     {% endif %}
-        
+
                     {% if l_buy_now_link %}
                         <a class="button is-primary" href="{{l_buy_now_link}}">Buy Now</a>
                     {% endif %}
