@@ -21,7 +21,7 @@ plugins:
   - jekyll-redirect-from
 
 # Theming / Styling
-remote_theme: chrisrhymes/bulma-clean-theme@v1.3.0
+# remote_theme: chrisrhymes/bulma-clean-theme@v1.3.0
 favicon: https://assets.bailey3d.com/website.assets/icon.png
 hero_image: https://assets.bailey3d.com/website.assets/banner.jpg
 
@@ -31,7 +31,7 @@ sass:
 
 # Build
 livereload: true
-destination: ./build/jekyll
+destination: .build/jekyll
 markdown: kramdown
 highlighter: rouge
 
@@ -53,6 +53,7 @@ exclude:
 
 # Pagination
 paginate: 5
+paginate_path: "/blog/page:num/"
 
 collections:
   products:
