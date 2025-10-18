@@ -1,0 +1,56 @@
+# Core Website Settings
+lang: eng
+title: Bailey3D
+tagline: Technical Artist
+email: contact:bailey3d.com
+description: >
+  Technical Artist Specialising in Pipelines and Tools.
+baseurl: ""
+url: "https://www.bailey3d.com"
+permalink: pretty
+
+google_analytics: G-YBL8T39XKG
+google-analytics: G-YBL8T39XKG
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-feed
+  - jekyll-seo-tag
+  - kramdown-parser-gfm
+  - jekyll-redirect-from
+
+# Theming / Styling
+remote_theme: chrisrhymes/bulma-clean-theme@v1.3.0
+favicon: https://assets.bailey3d.com/website.assets/icon.png
+hero_image: https://assets.bailey3d.com/website.assets/banner.jpg
+
+sass:
+  style: compressed
+  source_dir: _sass
+
+# Build
+livereload: true
+destination: ./build/jekyll
+markdown: kramdown
+highlighter: rouge
+
+whitelist:
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jekyll-include-cache
+
+exclude:
+  - Gemfile
+  - clean-theme.gemspec
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+
+# Pagination
+paginate: 5
+

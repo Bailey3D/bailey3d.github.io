@@ -1,0 +1,30 @@
+{
+    "name": "Bailey3D Website",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "workspaceFolder": "/workspace",
+    // "remoteUser": "vscode",
+    "mounts": [
+        "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
+    ],
+    "containerEnv": {
+        "RUBY_LSP_CACHE_DIR": "/workspace/.cache/ruby-lsp",
+        "JEKYLL_CACHE_DIR": "/workspace/.cache/jekyll"
+    },
+    "postCreateCommand": "cd /workspace/site && bundle install",
+    "postStartCommand": "chmod +x /workspace/site/serve.sh && /workspace/site/serve.sh",
+    "forwardPorts": [4000],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "shopify.ruby-lsp",
+                "ms-python.python",
+                "bradlc.vscode-tailwindcss",
+                "GitHub.copilot",
+                "GitHub.copilot-chat",
+                "formulahendry.code-runner"
+            ]
+        }
+    }
+}
