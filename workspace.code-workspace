@@ -13,7 +13,7 @@
 			"path":".\\_docs"
 		},
 		{
-			"name":"Site",
+			"name":"docs",
 			"path": "."
 		}
 	],
