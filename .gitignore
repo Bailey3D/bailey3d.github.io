@@ -28,7 +28,11 @@ _asset_bundler_cache
 _site
 
 # Bailey3D: General
+.temp
 .build
 .cache
 .ruby-lsp
 /assets/images/temp
+
+# Secrets
+.env

@@ -21,10 +21,7 @@ ENV GEM_HOME=/usr/local/bundle \
     BUNDLE_PATH=/usr/local/bundle \
     BUNDLE_APP_CONFIG=/usr/local/bundle
 
-# Switch to vscode user
 USER vscode
-
-# Set working directory
 WORKDIR /workspace
 
 # Expose Jekyll port

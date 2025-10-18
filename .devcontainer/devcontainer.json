@@ -1,20 +1,16 @@
 {
     "name": "Bailey3D Website",
-    "build": {
-        "dockerfile": "Dockerfile"
-    },
+    "dockerComposeFile": "../docker-compose.yml",
+    "service": "jekyll",
     "workspaceFolder": "/workspace",
-    // "remoteUser": "vscode",
-    "mounts": [
-        "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
-    ],
+    "remoteUser": "vscode",
     "containerEnv": {
         "RUBY_LSP_CACHE_DIR": "/workspace/.cache/ruby-lsp",
         "JEKYLL_CACHE_DIR": "/workspace/.cache/jekyll"
     },
-    "postCreateCommand": "cd /workspace/docs && bundle install",
-    "postStartCommand": "chmod +x /workspace/docs/serve.sh && /workspace/docs/serve.sh",
-    "forwardPorts": [4000],
+    "forwardPorts": [
+        4000  // Jekyll server
+    ],
     "customizations": {
         "vscode": {
             "extensions": [
